@@ -6,6 +6,12 @@ const jest = require("jest");
 const fs = require("fs");
 const writeFileSync = util.promisify(fs.writeFile);
 
+const Manager = require("./lib/Manager");
+const Employee = require("./lib/Employee");
+const Engineer = require("./lib/Engineer");
+const Intern = require("./lib/Intern");
+
+const teamMembers = [];
 
 const createManager = () => {
 
@@ -31,7 +37,16 @@ const createManager = () => {
             message: "Enter the office number of the Manager:"
         },
     ])
-    .then(function(answer){
+    .then(function({ managerName, managerId, managerEmail, managerOffice }){
+        const manager = new Manager(managerName, managerId, managerEmail, managerOffice);
+        const html = buildManagerHTML(managerName, managerId, managerEmail, managerOffice);
+
+        teamMembers.push(manager);
+
+        fs.writeFileSync("./output/team.html", html, function(err, result){
+            if (err) console.log('error', err);
+        })
+
         createTeam();
     });
 }
@@ -60,7 +75,7 @@ function createTeam() {
         createIntern();
         break;
       default:
-        buildHTML();
+        return;
       }
     });
 
@@ -89,7 +104,9 @@ function createEngineer() {
             name: "engineerGithub",
             message: "Enter the Github username of the engineer:"
         },
-    ]).then(function(answer) {
+    ]).then(function( { engineerName, engineerId, engineerEmail, engineerGithub }) {
+        const engineer = new engineer(engineerName, engineerId, engineerEmail, engineerGithubb);
+        teamMembers.push(engineer);
         createTeam();
     });
 
@@ -121,6 +138,60 @@ function createIntern() {
     ]).then(function(answer) {
         createTeam();
     });
+
+}
+
+const buildInternHTML = (name, role, id, email, school) => {
+
+    return `<div class="card employee-card">
+    <div class="card-header">
+        <h2 class="card-title">${name}</h2>
+        <h3 class="card-title"><i class="fas fa-user-graduate mr-3"></i>${role}</h3>
+    </div>
+    <div class="card-body">
+        <ul class="list-group">
+            <li class="list-group-item">ID: ${id}</li>
+            <li class="list-group-item">Email: ${email}<a href="mailto:${email}"></a></li>
+            <li class="list-group-item">School: ${school}</li>
+        </ul>
+    </div>
+</div>`
+
+};
+
+const buildEngineerHTML = (name, role, id, email, github) => {
+
+    return `<div class="card employee-card">
+    <div class="card-header">
+        <h2 class="card-title">${name}</h2>
+        <h3 class="card-title"><i class="fas fa-user-cog mr-3"></i>${role}</h3>
+    </div>
+    <div class="card-body">
+        <ul class="list-group">
+            <li class="list-group-item">ID: ${id}</li>
+            <li class="list-group-item">Email: ${email}<a href="mailto:${email}"></a></li>
+            <li class="list-group-item">GitHub: <a href="https://github.com/${github}" target="_blank">${github}</a></li>
+        </ul>
+    </div>
+</div>`
+
+};
+
+const buildManagerHTML = (name, role, id, email, officeNumber) => {
+
+    return `<div class="card employee-card">
+    <div class="card-header">
+        <h2 class="card-title">${name}</h2>
+        <h3 class="card-title"><i class="fas fa-user-tie mr-3"></i>${role}</h3>
+    </div>
+    <div class="card-body">
+        <ul class="list-group">
+            <li class="list-group-item">ID: ${id}</li>
+            <li class="list-group-item">Email: ${email}<a href="mailto:${email}"></a></li>
+            <li class="list-group-item">Office number: ${officeNumber}</li>
+        </ul>
+    </div>
+</div>`
 
 }
 
