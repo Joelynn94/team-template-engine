@@ -4,7 +4,8 @@ const axios = require("axios");
 const util = require("util");
 const jest = require("jest");
 const fs = require("fs");
-const writeFileSync = util.promisify(fs.writeFile);
+const createCards = require("./lib/createCards");
+const createHTML = require("./lib/createHTML");
 
 const Manager = require("./lib/Manager");
 const Employee = require("./lib/Employee");
@@ -141,57 +142,4 @@ function createIntern() {
 
 }
 
-const buildInternHTML = (name, role, id, email, school) => {
-
-    return `<div class="card employee-card">
-    <div class="card-header">
-        <h2 class="card-title">${name}</h2>
-        <h3 class="card-title"><i class="fas fa-user-graduate mr-3"></i>${role}</h3>
-    </div>
-    <div class="card-body">
-        <ul class="list-group">
-            <li class="list-group-item">ID: ${id}</li>
-            <li class="list-group-item">Email: ${email}<a href="mailto:${email}"></a></li>
-            <li class="list-group-item">School: ${school}</li>
-        </ul>
-    </div>
-</div>`
-
-};
-
-const buildEngineerHTML = (name, role, id, email, github) => {
-
-    return `<div class="card employee-card">
-    <div class="card-header">
-        <h2 class="card-title">${name}</h2>
-        <h3 class="card-title"><i class="fas fa-user-cog mr-3"></i>${role}</h3>
-    </div>
-    <div class="card-body">
-        <ul class="list-group">
-            <li class="list-group-item">ID: ${id}</li>
-            <li class="list-group-item">Email: ${email}<a href="mailto:${email}"></a></li>
-            <li class="list-group-item">GitHub: <a href="https://github.com/${github}" target="_blank">${github}</a></li>
-        </ul>
-    </div>
-</div>`
-
-};
-
-const buildManagerHTML = (name, role, id, email, officeNumber) => {
-
-    return `<div class="card employee-card">
-    <div class="card-header">
-        <h2 class="card-title">${name}</h2>
-        <h3 class="card-title"><i class="fas fa-user-tie mr-3"></i>${role}</h3>
-    </div>
-    <div class="card-body">
-        <ul class="list-group">
-            <li class="list-group-item">ID: ${id}</li>
-            <li class="list-group-item">Email: ${email}<a href="mailto:${email}"></a></li>
-            <li class="list-group-item">Office number: ${officeNumber}</li>
-        </ul>
-    </div>
-</div>`
-
-}
 
