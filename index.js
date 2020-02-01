@@ -105,7 +105,7 @@ function createEngineer() {
             message: "Enter the Github username of the engineer:"
         },
     ]).then(function( { engineerName, engineerId, engineerEmail, engineerGithub }) {
-        const engineer = new engineer(engineerName, engineerId, engineerEmail, engineerGithubb);
+        const engineer = new Engineer(engineerName, engineerId, engineerEmail, engineerGithub);
         teamMembers.push(engineer);
         createTeam();
     });
