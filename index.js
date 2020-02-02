@@ -1,18 +1,14 @@
 // requires 
 const inquirer = require("inquirer");
-const axios = require("axios");
-const util = require("util");
-const jest = require("jest");
-const fs = require("fs");
 const createCards = require("./lib/createCards");
-const createHTML = require("./lib/createHTML");
 
 const Manager = require("./lib/Manager");
-const Employee = require("./lib/Employee");
 const Engineer = require("./lib/Engineer");
 const Intern = require("./lib/Intern");
 
-const teamMembers = [];
+const managerArray = [];
+const engineerArray = [];
+const internArray = [];
 
 const createManager = () => {
 
@@ -36,18 +32,11 @@ const createManager = () => {
             type: "input",
             name: "managerOffice",
             message: "Enter the office number of the Manager:"
-        },
+        }
     ])
     .then(function({ managerName, managerId, managerEmail, managerOffice }){
         const manager = new Manager(managerName, managerId, managerEmail, managerOffice);
-        const html = buildManagerHTML(managerName, managerId, managerEmail, managerOffice);
-
-        teamMembers.push(manager);
-
-        fs.writeFileSync("./output/team.html", html, function(err, result){
-            if (err) console.log('error', err);
-        })
-
+        managerArray.push(manager)
         createTeam();
     });
 }
@@ -69,14 +58,14 @@ function createTeam() {
       }
     ]).then(answer => {
       switch(answer.teamMember) {
-      case "Engineer":
-        createEngineer();
-        break;
-      case "Intern":
-        createIntern();
-        break;
-      default:
-        return;
+        case "Engineer":
+            createEngineer();
+            break;
+        case "Intern":
+            createIntern();
+            break;
+        default:
+            createCards(managerArray, engineerArray, internArray);
       }
     });
 
@@ -104,10 +93,10 @@ function createEngineer() {
             type: "input",
             name: "engineerGithub",
             message: "Enter the Github username of the engineer:"
-        },
-    ]).then(function( { engineerName, engineerId, engineerEmail, engineerGithub }) {
+        }
+    ]).then(function({ engineerName, engineerId, engineerEmail, engineerGithub }) {
         const engineer = new Engineer(engineerName, engineerId, engineerEmail, engineerGithub);
-        teamMembers.push(engineer);
+        engineerArray.push(engineer);
         createTeam();
     });
 
@@ -119,24 +108,26 @@ function createIntern() {
         {
             type: "input",
             name: "internName",
-            message: "Enter the name of a Intern:"
+            message: "Enter the name of a intern:"
         },
         {
             type: "input",
             name: "internId",
-            message: "Enter the ID of the Intern:"
+            message: "Enter the ID of the intern:"
         },
         {
             type: "input",
             name: "internEmail",
-            message: "Enter the email of the Intern:"
+            message: "Enter the email of the intern:"
         },
         {
             type: "input",
-            name: "internGithub",
-            message: "Enter the Github username of the Intern:"
-        },
-    ]).then(function(answer) {
+            name: "internSchool",
+            message: "Enter the school the intern is attending:"
+        }
+    ]).then(function({ internName, internId, internEmail, internSchool }) {
+        const intern = new Intern(internName, internId, internEmail, internSchool);
+        internArray.push(intern);
         createTeam();
     });
 
