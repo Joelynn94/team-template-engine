@@ -12,8 +12,6 @@ This application is built as a Node CLI that takes in information about employee
 
 ## App Demo
 
-<img src="images/CLI-team-template-engine.PNG" width="500" >
-
 ![Node CLI Example](images/CLI-team-template-engine.PNG)
 
 ![Webpage Example](images/WEBPAGE-team-template-engine.PNG)
