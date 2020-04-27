@@ -1,6 +1,6 @@
 # Team Template Engine - Employee Summary
 
-#### Purpose 
+### Purpose 
 
 As a manager - I want to generate a HTML webpage that displays my team's basic info so that I have quick access to emails and GitHub profiles The project prompts a user to build an engineering team. An engineering team consists of a manager, and any number of engineers and interns.
 
