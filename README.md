@@ -10,7 +10,7 @@ This application is built as a Node CLI that takes in information about employee
 
 [Deployed Link](https://joelynn94.github.io/team-template-engine/) 
 
-### App Demo
+## App Demo
 
 #### Node CLI Demo
 ![Node CLI Example](images/CLI-team-template-engine.PNG)
