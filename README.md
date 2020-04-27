@@ -12,10 +12,13 @@ This application is built as a Node CLI that takes in information about employee
 
 ### App Demo
 
+#### Node CLI Demo
 ![Node CLI Example](images/CLI-team-template-engine.PNG)
 
+#### Generated Webpage Demo
 ![Webpage Example](images/WEBPAGE-team-template-engine.PNG)
 
+#### Generated HTML
 ![HTML Output Example](images/HTML-team-template-engine.PNG)
 
 
